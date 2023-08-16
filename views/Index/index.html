@@ -1,0 +1,54 @@
+{% extends "Layouts/topnav_layout.html" %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Últimos eventos adicionados</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Código do Evento</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Local</th>
+                            <th>Data</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for evento in eventos %}
+                        <tr>
+                            <td style="text-align:right">{{ loop.index }}</td>
+                            <td style="text-align:right">{{ evento.getId }}</td>
+                            <td>{{ evento.getDescricao }}</td>
+                            <td>{{ evento.getCategoria.getDescricao }}</td>
+                            <td>{{ evento.getLocal.getNome }}</td>
+                            <td style="text-align:center">{{ evento.getData }}</td>
+                            <td><button type="button" class="btn btn-block btn-primary" onClick="gerenciarEvento('{{ evento.getId }}')"><i class="fa fa-fw fa-pencil"></i> Gerenciar Equipe</button></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+<br/>
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script>
+    function gerenciarEvento(id)
+    {
+        location.href = "/equipes/gerenciar?evento="+id;
+    }
+</script>
+{% endblock %}
